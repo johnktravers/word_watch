@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         await postWord(word);
       }
     })
+
+    let newTopWord = await getTopWord();
+
+    if (topWord == newTopWord) {
+      error = '<h5 class="error">Your input did not change the top word! Please try again.</h5>'
+      document.querySelector('.error-messages').innerHTML = error;
+    }
   };
 
 });
