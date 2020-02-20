@@ -76,7 +76,7 @@ module.exports = __webpack_require__(2);
 /***/ (function(module, exports) {
 
 document.addEventListener("DOMContentLoaded", async function(event) {
-  await getTopWord();
+  let topWord = await getTopWord();
 
   var button = document.querySelector('button');
 
@@ -86,12 +86,16 @@ document.addEventListener("DOMContentLoaded", async function(event) {
 
     words.forEach(async (word) => {
       if (onlyAlpha(word)) {
-        let response = await postWord(word);
-        console.log(response)
+        await postWord(word);
       }
     })
 
-    await getTopWord();
+    let newTopWord = await getTopWord();
+
+    if (topWord == newTopWord) {
+      error = '<h5 class="error">Your input did not change the top word! Please try again.</h5>'
+      document.querySelector('.error-messages').innerHTML = error;
+    }
   };
 
 });
@@ -105,6 +109,7 @@ async function getTopWord() {
 
     document.querySelector('#word').innerHTML = topWord;
     document.querySelector('#count').innerHTML = topWordData.word[topWord];
+    return topWord;
 
   } catch(err) {
     console.log(err);
@@ -169,7 +174,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700);", ""]);
 
 // module
-exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after {\n  content: '';\n  content: none; }\n\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbody {\n  font-family: \"Open Sans\", \"Helvetica\", sans-serif;\n  color: #555;\n  margin: 5px;\n  background-color: #ebebeb;\n  overflow: hidden; }\n\nh1 {\n  font-size: 3em; }\n\nh2 {\n  font-size: 2.5em; }\n\nh3 {\n  font-size: 2em; }\n\nh4 {\n  font-size: 1.5em; }\n\na {\n  text-decoration: none;\n  color: #555; }\n\nmain {\n  display: flex;\n  justify-content: space-between; }\n  main .text-submission {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    flex: 1;\n    margin-right: 20px;\n    height: 100vh; }\n    main .text-submission h2 {\n      margin-bottom: 10px;\n      color: #4B0082; }\n      main .text-submission h2 span {\n        color: #FA8072; }\n    main .text-submission textarea {\n      resize: none;\n      border: 2px solid #ededf5;\n      border-radius: 3px;\n      width: 100%;\n      height: 80vh;\n      font-family: \"Open Sans\", \"Helvetica\", sans-serif; }\n    main .text-submission button {\n      border: none;\n      color: #ededf5;\n      width: 205px;\n      border-radius: 3px;\n      padding: .8em 3em;\n      font-size: 1.1em;\n      margin-top: 10px;\n      transition: 300ms;\n      background-color: #FA8072; }\n      main .text-submission button:hover, main .text-submission button:focus {\n        transition: 300ms;\n        cursor: pointer;\n        background-color: #4B0082; }\n  main .word-data {\n    width: 65%;\n    background-color: #ddd; }\n    main .word-data .top-word {\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      border-bottom: 2px solid #4B0082;\n      height: 8vh;\n      color: #FA8072;\n      padding: 10px; }\n    main .word-data .word-count {\n      flex-wrap: wrap;\n      align-items: baseline;\n      padding: 5px;\n      overflow-y: scroll;\n      overflow-x: scroll;\n      height: 90vh; }\n      main .word-data .word-count p {\n        margin-right: 10px; }\n        main .word-data .word-count p span {\n          display: none; }\n\n#word, #count {\n  color: #a498f0; }\n", ""]);
+exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after {\n  content: '';\n  content: none; }\n\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbody {\n  font-family: \"Open Sans\", \"Helvetica\", sans-serif;\n  color: #555;\n  margin: 5px;\n  background-color: #ebebeb;\n  overflow: hidden; }\n\nh1 {\n  font-size: 3em; }\n\nh2 {\n  font-size: 2.5em; }\n\nh3 {\n  font-size: 2em; }\n\nh4 {\n  font-size: 1.5em; }\n\na {\n  text-decoration: none;\n  color: #555; }\n\nmain {\n  display: flex;\n  justify-content: space-between; }\n  main .text-submission {\n    display: flex;\n    flex-direction: column;\n    justify-content: space-around;\n    flex: 1;\n    margin-right: 20px;\n    height: 100vh; }\n    main .text-submission h2 {\n      margin-bottom: 10px;\n      color: #4B0082; }\n      main .text-submission h2 span {\n        color: #FA8072; }\n    main .text-submission textarea {\n      resize: none;\n      border: 2px solid #ededf5;\n      border-radius: 3px;\n      width: 100%;\n      height: 80vh;\n      font-family: \"Open Sans\", \"Helvetica\", sans-serif; }\n    main .text-submission button {\n      border: none;\n      color: #ededf5;\n      width: 205px;\n      border-radius: 3px;\n      padding: .8em 3em;\n      font-size: 1.1em;\n      margin-top: 10px;\n      transition: 300ms;\n      background-color: #FA8072; }\n      main .text-submission button:hover, main .text-submission button:focus {\n        transition: 300ms;\n        cursor: pointer;\n        background-color: #4B0082; }\n  main .word-data {\n    width: 65%;\n    background-color: #ddd; }\n    main .word-data .top-word {\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      border-bottom: 2px solid #4B0082;\n      height: 8vh;\n      color: #FA8072;\n      padding: 10px; }\n    main .word-data .word-count {\n      flex-wrap: wrap;\n      align-items: baseline;\n      padding: 5px;\n      overflow-y: scroll;\n      overflow-x: scroll;\n      height: 90vh; }\n      main .word-data .word-count p {\n        margin-right: 10px; }\n        main .word-data .word-count p span {\n          display: none; }\n\n#word, #count {\n  color: #a498f0; }\n\n.error-messages {\n  margin-top: 75px;\n  color: tomato;\n  text-align: center; }\n\n.error {\n  border: 2px solid #4B0082;\n  padding-top: 20px;\n  padding-bottom: 20px; }\n", ""]);
 
 // exports
 
