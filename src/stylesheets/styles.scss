@@ -81,7 +81,6 @@ main {
       padding: 10px;
     }
     .word-count {
-      display: flex;
       flex-wrap: wrap;
       align-items: baseline;
       padding: 5px;
@@ -96,4 +95,8 @@ main {
       }
     }
   }
+}
+
+#word, #count {
+  color: #a498f0;
 }
